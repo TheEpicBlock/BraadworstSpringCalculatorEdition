@@ -2,9 +2,9 @@
 # Makefile Options
 # ----------------------------
 
-NAME = DEMO
+NAME = BraadworstSpring
 ICON = icon.png
-DESCRIPTION = "CE C Toolchain Demo"
+DESCRIPTION = "De legendarische Braadworst spring, nu in je rekenmachine"
 COMPRESSED = NO
 ARCHIVED = NO
 
