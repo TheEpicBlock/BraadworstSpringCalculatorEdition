@@ -2,7 +2,7 @@
 # Makefile Options
 # ----------------------------
 
-NAME = BraadworstSpring
+NAME = BWScalc
 ICON = icon.png
 DESCRIPTION = "De legendarische Braadworst spring, nu in je rekenmachine"
 COMPRESSED = NO
