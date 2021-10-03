@@ -27,9 +27,9 @@ void rend_PrintMainMenu(void) {
     PrintHorizontalCentered("TI-84 edition", LCD_HEIGHT-32, COLOR_WHITE);
 }
 
-const int GROUND_LAYER_HEIGHT = 20;
+const int GROUND_LAYER_HEIGHT = 15;
 const int GROUND_LAYER_TOTAL_HEIGHT = GROUND_LAYER_HEIGHT*4;
-const int PLAYER_MAX_JUMP = LCD_HEIGHT*0.3;
+const int PLAYER_MAX_JUMP = LCD_HEIGHT*0.5;
 const int PLAYER_X = 10;
 const int BASE = LCD_HEIGHT-GROUND_LAYER_TOTAL_HEIGHT;
 
