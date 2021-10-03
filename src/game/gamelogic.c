@@ -49,7 +49,7 @@ void game_InitState(struct GameState *state) {
     rend_RenderGame(state, 0);
     
     // Give some time for the user to let go of enter
-    delay(500);
+    delay(1500);
     
     // Initialize timers    
     timer_Set(TIMER, 0);
