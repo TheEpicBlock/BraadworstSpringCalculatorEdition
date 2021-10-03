@@ -2,7 +2,7 @@
 #include <graphx.h>
 #include <stdlib.h>
 
-#include "gfx/gfx.h"
+#include "gfx/generated/gfx.h"
 #include "rendering/colors.h"
 #include "rendering/renderutil.h"
 #include "game/gamelogic.h"

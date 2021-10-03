@@ -1,4 +1,4 @@
 obj/
 bin/
-src/gfx/*.c
-src/gfx/*.h
+src/gfx/generated/
+src/gfx/scaled/

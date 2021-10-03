@@ -13,13 +13,14 @@ converts:
     palette: global_palette
     transparent-color-index: 0
     images:
-      - braadworst0.png
-      - braadworst1.png
-      - obstacles/genericobstacle.png
+      - scaled/braadworst0.png
+      - scaled/braadworst1.png
+      - scaled/genericobstacle.png
 
 outputs:
   - type: c
     include-file: gfx.h
+    directory: generated
     palettes:
       - global_palette
     converts:
