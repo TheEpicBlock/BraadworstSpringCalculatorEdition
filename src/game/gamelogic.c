@@ -11,7 +11,7 @@ const int OBSTACLE_MAX_OFFSET = 5;
 const int OBSTACLE_SPEED = 80;
 
 const int SECOND = 32768;
-const int TIMER = 3;
+const int TIMER = 2;
 
 static float Max(float a, float b) {
     if (a > b) {
