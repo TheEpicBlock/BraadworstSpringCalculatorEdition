@@ -8,8 +8,8 @@ DESCRIPTION = "De legendarische Braadworst spring, nu in je rekenmachine"
 COMPRESSED = NO
 ARCHIVED = NO
 
-CFLAGS = -Wall -Wextra -Oz
-CXXFLAGS = -Wall -Wextra -Oz
+CFLAGS = -Wall -Wextra -O3
+CXXFLAGS = -Wall -Wextra -O3
 
 # ----------------------------
 

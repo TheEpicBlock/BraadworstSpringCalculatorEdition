@@ -1,0 +1,24 @@
+palettes:
+  - name: global_palette
+    fixed-entries:
+      - color: {index: 0, r: 41,  g: 77,  b: 122}  # Background color
+      - color: {index: 1, r: 181, g: 230, b: 29 }  # Floor 1
+      - color: {index: 2, r: 34,  g: 177, b: 76 }  # Floor 2
+    images: automatic
+
+converts:
+  - name: sprites
+    palette: global_palette
+    transparent-color-index: 0
+    images:
+      - braadworst0.png
+      - braadworst1.png
+
+outputs:
+  - type: c
+    include-file: gfx.h
+    palettes:
+      - global_palette
+    converts:
+      - sprites
+
