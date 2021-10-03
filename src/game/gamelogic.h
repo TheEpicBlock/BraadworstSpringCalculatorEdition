@@ -11,14 +11,14 @@ enum GameStatus {
 };
 
 struct Obstacle {
-    int         position;
+    float               position;
 };
 
 
 struct GameState {
     enum GameStatus     status;
     int                 score;
-    double              timeJumped;
+    float               timeJumped;
     struct Obstacle     obstacles[OBSTACLE_COUNT];
 };
 void game_InitState(struct GameState *state);

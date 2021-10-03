@@ -21,7 +21,7 @@ void rend_PrintMainMenu(void) {
     // Fill screen with background color
     gfx_ZeroScreen();
     
-    gfx_SetTextScale(4,4);
+    gfx_SetTextScale(2,2);
     PrintHorizontalCentered("Braadworst Spring", 16, COLOR_RED);
     gfx_SetTextScale(1,1);
     PrintHorizontalCentered("TI-84 edition", LCD_HEIGHT-32, COLOR_WHITE);
@@ -33,7 +33,7 @@ const int PLAYER_MAX_JUMP = LCD_HEIGHT/2;
 const int PLAYER_X = 10;
 const int BASE = LCD_HEIGHT-GROUND_LAYER_TOTAL_HEIGHT;
 
-void rend_RenderGame(struct GameState *state, double playerHeight) {
+void rend_RenderGame(struct GameState *state, float playerHeight) {
     gfx_ZeroScreen();
     
     gfx_SetColor(COLOR_FLOOR_1);
@@ -48,6 +48,6 @@ void rend_RenderGame(struct GameState *state, double playerHeight) {
     gfx_Sprite(braadworst0, PLAYER_X, BASE-playerHeight*PLAYER_MAX_JUMP-braadworst0_height);
     
     for (int i = 0; i < OBSTACLE_COUNT; i += 1) {
-        gfx_Sprite(genericobstacle, state->obstacles[i].position, BASE-genericobstacle_height);
+        gfx_Sprite(genericobstacle, (int)(state->obstacles[i].position), BASE-genericobstacle_height);
     }
 }
