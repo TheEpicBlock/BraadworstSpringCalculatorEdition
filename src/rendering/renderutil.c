@@ -8,3 +8,9 @@ void PrintHorizontalCentered(const char *str, int height, int color) {
     int x = (LCD_WIDTH - gfx_GetStringWidth(str)) / 2;
     gfx_PrintStringXY(str, x, height);
 }
+
+void PrintUInt(int x, int y, int color, unsigned int n) {
+    gfx_SetTextFGColor(color);
+    gfx_SetTextXY(x,y);
+    gfx_PrintUInt(n, 0);
+}

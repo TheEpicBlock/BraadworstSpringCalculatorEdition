@@ -17,7 +17,7 @@ struct Obstacle {
 
 struct GameState {
     enum GameStatus     status;
-    int                 score;
+    unsigned int        score;
     float               timeJumped;
     struct Obstacle     obstacles[OBSTACLE_COUNT];
     int                 lastObstacle;

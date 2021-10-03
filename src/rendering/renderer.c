@@ -50,4 +50,7 @@ void rend_RenderGame(struct GameState *state, float playerHeight) {
     for (int i = 0; i < OBSTACLE_COUNT; i += 1) {
         gfx_Sprite(genericobstacle, (int)(state->obstacles[i].position), BASE-genericobstacle_height);
     }
+    
+    // Show score
+    PrintUInt(0, 0, COLOR_WHITE, state->score);
 }

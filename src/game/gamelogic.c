@@ -58,6 +58,7 @@ bool game_Tick(struct GameState *state) {
         if (state->obstacles[i].position < -genericobstacle_width) {
             state->obstacles[i].position = state->obstacles[state->lastObstacle].position + GetNewPositionOffset();
             state->lastObstacle = i;
+            state->score += 3;
         }
     }
     
