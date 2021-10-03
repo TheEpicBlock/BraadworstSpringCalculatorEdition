@@ -47,7 +47,7 @@ void game_InitState(struct GameState *state) {
     rend_RenderGame(state, 0);
     
     // Give some time for the user to let go of enter
-    delay(500);
+    delay(2000);
     
     // Initialize timers    
     timer_Set(TIMER, 0);
@@ -94,6 +94,9 @@ static void InGameTick(struct GameState *state) {
     
     // Render game
     rend_RenderGame(state, playerY);
+    
+    // Don't go too fast
+    while (timer_Get(TIMER) < SECOND/60);
 }
 
 bool game_Tick(struct GameState *state) {
@@ -112,9 +115,6 @@ bool game_Tick(struct GameState *state) {
     } else {
         InGameTick(state);
     }
-    
-    // Don't go too fast
-    while (timer_Get(TIMER) < SECOND/60);
     
     return false;
 }
