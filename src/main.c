@@ -2,45 +2,25 @@
 #include <graphx.h>
 #include <stdlib.h>
 
-#include "gfx/gfx.h"
-#include "colors.h"
-
-void PrintCentered(const char *str, int y, int c);
-void PrintMainMenu(void);
+#include "rendering/renderer.h"
+#include "game/gamelogic.h"
 
 // Main function, called first
 int main(void)
 {
     // Initialize graphics drawing
-    gfx_Begin();
-    gfx_SetPalette(global_palette, sizeof_global_palette, 0); // Set global palette to the auto generated one
-    gfx_SetTransparentColor(0); // Set the transparent color to be the background color
+    rend_InitRendering();
     
-    // Print the main menu
-    PrintMainMenu();
-    
-    // Wait for keypress
+    // Print the main menu and wait for a keypress
+    rend_PrintMainMenu();
     while (!os_GetCSC());
 
-    // End graphics drawing
-    gfx_End();
-
-    /* Return 0 for success */
-    return 0;
-}
-
-void PrintMainMenu(void) {
-    // Fill screen with background color
-    gfx_ZeroScreen();
+    struct GameState gameState;
+    game_InitState(&gameState);
     
-    PrintCentered("Braadworst Spring", 16, color_red);
-    PrintCentered("TI-84 edition", LCD_HEIGHT-32, color_white);
-}
+    while (!game_Tick(&gameState));
 
-void PrintCentered(const char *str, int y, int c)
-{
-    gfx_SetTextFGColor(c);
-    gfx_PrintStringXY(str,
-                      (LCD_WIDTH - gfx_GetStringWidth(str)) / 2,
-                      y);
+    // End graphics drawing
+    rend_EndRendering();
+    return 0;
 }

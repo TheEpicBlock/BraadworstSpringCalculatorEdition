@@ -15,6 +15,7 @@ converts:
     images:
       - braadworst0.png
       - braadworst1.png
+      - obstacles/genericobstacle.png
 
 outputs:
   - type: c
