@@ -62,7 +62,8 @@ bool game_Tick(struct GameState *state) {
     // Jumping
     state->timeJumped += delta;
     
-    float playerY = Max(-(state->timeJumped*(state->timeJumped-2)), 0);
+    float tJ = state->timeJumped;
+    float playerY = Max(-(tJ*(tJ-3))/2.25, 0);
     
     if (playerY == 0) {
         if (kb_IsDown(kb_KeyEnter) || kb_IsDown(kb_KeyUp)) {
