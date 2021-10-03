@@ -86,10 +86,8 @@ void rend_RenderDeath(struct GameState *state) {
     
     gfx_SetTextScale(1,1);
     const char *score = "Score: ";
-    int scorewidth = gfx_GetStringWidth(score);
-    gfx_SetTextXY(gfx_GetTextX(), gfx_GetTextY()+35);
+    gfx_SetTextXY((LCD_WIDTH - textwidth) / 2, gfx_GetTextY()+16);
     gfx_PrintString(score);
-    gfx_SetTextXY(gfx_GetTextX()+scorewidth, gfx_GetTextY());
     gfx_PrintUInt(state->score, 0);
     
     gfx_SetTextBGColor(255);
