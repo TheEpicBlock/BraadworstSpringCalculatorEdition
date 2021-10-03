@@ -30,6 +30,7 @@ float game_PlayerYFromTime(float time) {
 }
 
 void game_InitState(struct GameState *state) {
+    
     // Initialize obstacles
     float pos = GetNewPositionOffset();
     for (int i = 0; i < OBSTACLE_COUNT; i += 1) {
@@ -38,12 +39,19 @@ void game_InitState(struct GameState *state) {
     }
     state->lastObstacle = OBSTACLE_COUNT-1;
 
+    // Misc
+    state->score = 0;
+    state->isDead = false;
+    
+    // Render game
+    rend_RenderGame(state, 0);
+    
+    // Give some time for the user to let go of enter
+    delay(500);
+    
     // Initialize timers    
     timer_Set(TIMER, 0);
     timer_Enable(TIMER, TIMER_32K, TIMER_NOINT, TIMER_UP);
-    
-    // Misc
-    state->score = 0;
 }
 
 static void InGameTick(struct GameState *state) {
@@ -72,6 +80,7 @@ static void InGameTick(struct GameState *state) {
         
         if (gfx_CheckRectangleHotspot(PLAYER_X, playerY*PLAYER_MAX_JUMP, braadworst0_width, braadworst0_height, state->obstacles[i].position, 0, genericobstacle_width, genericobstacle_height)) {
             state->isDead = true;
+            timer_Disable(TIMER);
             rend_RenderDeath(state);
             return;
         }
@@ -96,7 +105,10 @@ bool game_Tick(struct GameState *state) {
     }
     
     if (state->isDead) {
-        
+        // Restart game
+        if (os_GetCSC()) {
+            game_InitState(state);
+        }
     } else {
         InGameTick(state);
     }
