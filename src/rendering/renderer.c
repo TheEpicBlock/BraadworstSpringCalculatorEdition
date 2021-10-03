@@ -29,7 +29,7 @@ void rend_PrintMainMenu(void) {
 
 const int GROUND_LAYER_HEIGHT = 20;
 const int GROUND_LAYER_TOTAL_HEIGHT = GROUND_LAYER_HEIGHT*4;
-const int PLAYER_MAX_JUMP = LCD_HEIGHT/2;
+const int PLAYER_MAX_JUMP = LCD_HEIGHT*0.3;
 const int PLAYER_X = 10;
 const int BASE = LCD_HEIGHT-GROUND_LAYER_TOTAL_HEIGHT;
 
