@@ -20,6 +20,7 @@ struct GameState {
     int                 score;
     float               timeJumped;
     struct Obstacle     obstacles[OBSTACLE_COUNT];
+    int                 lastObstacle;
 };
 void game_InitState(struct GameState *state);
 bool game_Tick(struct GameState *state);

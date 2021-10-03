@@ -31,6 +31,7 @@ void game_InitState(struct GameState *state) {
         state->obstacles[i].position = pos;
         pos += GetNewPositionOffset();
     }
+    state->lastObstacle = OBSTACLE_COUNT-1;
 
     // Initialize timers    
     timer_Set(TIMER, 0);
@@ -55,7 +56,8 @@ bool game_Tick(struct GameState *state) {
     for (int i = 0; i < OBSTACLE_COUNT; i += 1) {
         state->obstacles[i].position -= OBSTACLE_SPEED * delta;
         if (state->obstacles[i].position < -genericobstacle_width) {
-            state->obstacles[i].position = state->obstacles[OBSTACLE_COUNT-1].position + GetNewPositionOffset();
+            state->obstacles[i].position = state->obstacles[state->lastObstacle].position + GetNewPositionOffset();
+            state->lastObstacle = i;
         }
     }
     
