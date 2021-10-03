@@ -9,6 +9,7 @@
 
 void rend_InitRendering(void) {
     gfx_Begin();
+    gfx_SetDrawBuffer();
     gfx_SetPalette(global_palette, sizeof_global_palette, 0); // Set global palette to the auto generated one
     gfx_SetTransparentColor(0); // Set the transparent color to be the background color
 }
@@ -25,6 +26,7 @@ void rend_PrintMainMenu(void) {
     PrintHorizontalCentered("Braadworst Spring", 16, COLOR_RED);
     gfx_SetTextScale(1,1);
     PrintHorizontalCentered("TI-84 edition", LCD_HEIGHT-32, COLOR_WHITE);
+    gfx_SwapDraw();
 }
 
 const int GROUND_LAYER_HEIGHT = 15;
@@ -53,4 +55,7 @@ void rend_RenderGame(struct GameState *state, float playerHeight) {
     
     // Show score
     PrintUInt(0, 0, COLOR_WHITE, state->score);
+    
+    // Swap frame
+    gfx_SwapDraw();
 }
