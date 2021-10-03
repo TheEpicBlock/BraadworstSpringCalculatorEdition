@@ -42,6 +42,7 @@ void game_InitState(struct GameState *state) {
     // Misc
     state->score = 0;
     state->isDead = false;
+    state->timeJumped = 0;
     
     // Render game
     rend_RenderGame(state, 0);
