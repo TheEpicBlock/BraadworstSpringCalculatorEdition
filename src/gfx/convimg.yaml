@@ -4,6 +4,8 @@ palettes:
       - color: {index: 0, r: 41,  g: 77,  b: 122}  # Background color
       - color: {index: 1, r: 181, g: 230, b: 29 }  # Floor 1
       - color: {index: 2, r: 34,  g: 177, b: 76 }  # Floor 2
+      - color: {index: 3, r: 255, g: 255, b: 255}  # White
+      - color: {index: 4, r: 255, g: 0,   b: 0  }  # Main menu text color. AKA pure red
     images: automatic
 
 converts:

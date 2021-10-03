@@ -2,10 +2,10 @@
 #include <graphx.h>
 #include <stdlib.h>
 
-// Include the generated graphics code
 #include "gfx/gfx.h"
+#include "colors.h"
 
-void PrintCentered(const char *str, int y);
+void PrintCentered(const char *str, int y, int c);
 void PrintMainMenu(void);
 
 // Main function, called first
@@ -33,12 +33,13 @@ void PrintMainMenu(void) {
     // Fill screen with background color
     gfx_ZeroScreen();
     
-    PrintCentered("Braadworst Spring", 16);
-    PrintCentered("TI-84 edition", LCD_HEIGHT-32);
+    PrintCentered("Braadworst Spring", 16, color_red);
+    PrintCentered("TI-84 edition", LCD_HEIGHT-32, color_white);
 }
 
-void PrintCentered(const char *str, int y)
+void PrintCentered(const char *str, int y, int c)
 {
+    gfx_SetTextFGColor(c);
     gfx_PrintStringXY(str,
                       (LCD_WIDTH - gfx_GetStringWidth(str)) / 2,
                       y);
