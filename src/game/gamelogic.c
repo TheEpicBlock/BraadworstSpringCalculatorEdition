@@ -36,6 +36,7 @@ void game_InitState(struct GameState *state) {
     for (int i = 0; i < OBSTACLE_COUNT; i += 1) {
         state->obstacles[i].position = pos;
         pos += GetNewPositionOffset();
+        state->obstacles[i].hasScored = false;
     }
     state->lastObstacle = OBSTACLE_COUNT-1;
 
@@ -80,6 +81,7 @@ static void InGameTick(struct GameState *state) {
         
         if (state->obstacles[i].position < PLAYER_X && !state->obstacles[i].hasScored) {
             state->score += 3;
+            state->obstacles[i].hasScored = true;
         }
         
         if (gfx_CheckRectangleHotspot(PLAYER_X, playerY*PLAYER_MAX_JUMP, braadworst0_width, braadworst0_height, state->obstacles[i].position, 0, genericobstacle_width, genericobstacle_height)) {
