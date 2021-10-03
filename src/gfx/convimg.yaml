@@ -6,6 +6,7 @@ palettes:
       - color: {index: 2, r: 34,  g: 177, b: 76 }  # Floor 2
       - color: {index: 3, r: 255, g: 255, b: 255}  # White
       - color: {index: 4, r: 255, g: 0,   b: 0  }  # Main menu text color. AKA pure red
+      - color: {index: 5, r: 0,   g: 0,   b: 0  }  # Black
     images: automatic
 
 converts:

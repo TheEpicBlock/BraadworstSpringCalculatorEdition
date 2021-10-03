@@ -9,6 +9,7 @@ extern "C" {
 #define COLOR_FLOOR_2  2
 #define COLOR_WHITE    3
 #define COLOR_RED      4
+#define COLOR_BLACK    5
 
 #ifdef __cplusplus
 }

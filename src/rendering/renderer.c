@@ -31,13 +31,9 @@ void rend_PrintMainMenu(void) {
 
 const int GROUND_LAYER_HEIGHT = 15;
 const int GROUND_LAYER_TOTAL_HEIGHT = GROUND_LAYER_HEIGHT*4;
-const int PLAYER_MAX_JUMP = LCD_HEIGHT*0.5;
-const int PLAYER_X = 10;
 const int BASE = LCD_HEIGHT-GROUND_LAYER_TOTAL_HEIGHT;
 
-void rend_RenderGame(struct GameState *state, float playerHeight) {
-    gfx_ZeroScreen();
-    
+void RenderFloor(void) {
     gfx_SetColor(COLOR_FLOOR_1);
     gfx_FillRectangle_NoClip(0, LCD_HEIGHT-GROUND_LAYER_HEIGHT*1, LCD_WIDTH, GROUND_LAYER_HEIGHT);
     gfx_SetColor(COLOR_FLOOR_2);
@@ -46,15 +42,57 @@ void rend_RenderGame(struct GameState *state, float playerHeight) {
     gfx_FillRectangle_NoClip(0, LCD_HEIGHT-GROUND_LAYER_HEIGHT*3, LCD_WIDTH, GROUND_LAYER_HEIGHT);
     gfx_SetColor(COLOR_FLOOR_2);
     gfx_FillRectangle_NoClip(0, LCD_HEIGHT-GROUND_LAYER_HEIGHT*4, LCD_WIDTH, GROUND_LAYER_HEIGHT);
+}
 
+void RenderPlayer(float playerHeight) {
     gfx_Sprite(braadworst0, PLAYER_X, BASE-playerHeight*PLAYER_MAX_JUMP-braadworst0_height);
-    
+}
+
+void RenderObstacles(struct GameState *state) {
     for (int i = 0; i < OBSTACLE_COUNT; i += 1) {
         gfx_Sprite(genericobstacle, (int)(state->obstacles[i].position), BASE-genericobstacle_height);
     }
+}
+
+void rend_RenderGame(struct GameState *state, float playerHeight) {
+    gfx_ZeroScreen();
+    
+    RenderFloor();
+    RenderPlayer(playerHeight);
+    
+    RenderObstacles(state);
     
     // Show score
     PrintUInt(0, 0, COLOR_WHITE, state->score);
+    
+    // Swap frame
+    gfx_SwapDraw();
+}
+
+void rend_RenderDeath(struct GameState *state) {
+    gfx_ZeroScreen();
+    
+    RenderFloor();
+    float playerHeight = game_PlayerYFromTime(state->timeJumped);
+    RenderPlayer(playerHeight);
+    
+    // TEXT
+    gfx_SetTextFGColor(COLOR_BLACK);
+    gfx_SetTextBGColor(COLOR_WHITE);
+    gfx_SetTextScale(2,2);
+    const char *gameover = "Game over";
+    int textwidth = gfx_GetStringWidth(gameover);
+    gfx_PrintStringXY(gameover, (LCD_WIDTH - textwidth) / 2, (LCD_HEIGHT - 16) / 2);
+    
+    gfx_SetTextScale(1,1);
+    const char *score = "Score: ";
+    int scorewidth = gfx_GetStringWidth(score);
+    gfx_SetTextXY(gfx_GetTextX(), gfx_GetTextY()+35);
+    gfx_PrintString(score);
+    gfx_SetTextXY(gfx_GetTextX()+scorewidth, gfx_GetTextY());
+    gfx_PrintUInt(state->score, 0);
+    
+    gfx_SetTextBGColor(255);
     
     // Swap frame
     gfx_SwapDraw();
