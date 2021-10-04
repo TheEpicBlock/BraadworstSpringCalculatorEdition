@@ -99,6 +99,7 @@ static void InGameTick(struct GameState *state) {
             state->status = DEAD;
             timer_Disable(TIMER);
             rend_RenderDeath(state);
+            delay(500); // Just in case the player presses enter right on this moments
             return;
         }
     }
