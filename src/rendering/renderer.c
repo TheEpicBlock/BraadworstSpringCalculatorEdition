@@ -87,7 +87,7 @@ void rend_RenderDeath(struct GameState *state) {
     const char *score = "Score: ";
     gfx_SetTextXY((LCD_WIDTH - textwidth) / 2, gfx_GetTextY()+16);
     gfx_PrintString(score);
-    gfx_PrintUInt(state->score, 0);
+    gfx_PrintUInt(state->score, 1);
     
     // Swap frame
     gfx_SwapDraw();
@@ -109,7 +109,7 @@ void rend_RenderQuestion(struct GameState *state) {
     gfx_SetTextScale(2,2);
     gfx_SetTextXY((LCD_WIDTH - textwidth) / 2, (LCD_HEIGHT - 16) / 2);
     
-    gfx_printUInt(state->questionInfo.a, 1);
+    gfx_PrintUInt(state->questionInfo.a, 1);
     gfx_PrintString(" + ");
     gfx_PrintUInt(state->questionInfo.b, 1);
     gfx_PrintString(" = ?");
