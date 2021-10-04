@@ -63,7 +63,7 @@ void rend_RenderGame(struct GameState *state, float playerHeight) {
     RenderObstacles(state);
     
     // Show score
-    PrintUInt(0, 0, COLOR_WHITE, state->score);
+    PrintUInt(5, 5, COLOR_WHITE, state->score);
     
     // Swap frame
     gfx_SwapDraw();
