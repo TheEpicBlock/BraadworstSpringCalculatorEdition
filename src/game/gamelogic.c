@@ -21,8 +21,12 @@ static float Max(float a, float b) {
     }
 }
 
-int GetNewPositionOffset(void) {
+float GetNewPositionOffset(void) {
     return OBSTACLE_SPACING + 0;
+}
+
+float GetNewQuestionTime(void) {
+    return 10;
 }
 
 float game_PlayerYFromTime(float time) {
@@ -39,7 +43,10 @@ void game_InitState(struct GameState *state) {
         state->obstacles[i].hasScored = false;
     }
     state->lastObstacle = OBSTACLE_COUNT-1;
-
+    
+    // Question timer
+    state->questionInfo.timeToNext = GetNewQuestionTime();
+    
     // Misc
     state->score = 0;
     state->status = PLAYING;
@@ -59,6 +66,13 @@ void game_InitState(struct GameState *state) {
     kb_Scan();
 }
 
+static void OnDeath(struct GameState *state) {
+    state->status = DEAD;
+    timer_Disable(TIMER);
+    rend_RenderDeath(state);
+    delay(500); // Just in case the player presses enter right on this moments
+}
+
 static void InGameTick(struct GameState *state) {
     // Calculate time
     int deltaTime = timer_Get(TIMER);
@@ -73,11 +87,14 @@ static void InGameTick(struct GameState *state) {
     
     // Tick question
     if (state->questionInfo.timeToNext < 0) {
+        state->questionInfo.a = randInt(1,2);
+        state->questionInfo.b = randInt(1,2);
         state->status = QUESTIONED;
         timer_Disable(TIMER);
         rend_RenderQuestion(state);
         return;
     }
+    state->questionInfo.timeToNext -= delta;
     
     // Obstacles
     for (int i = 0; i < OBSTACLE_COUNT; i += 1) {
@@ -97,10 +114,7 @@ static void InGameTick(struct GameState *state) {
         
         // Kill
         if (gfx_CheckRectangleHotspot(PLAYER_X, playerY*PLAYER_MAX_JUMP, braadworst0_width, braadworst0_height, state->obstacles[i].position, 0, genericobstacle_width, genericobstacle_height)) {
-            state->status = DEAD;
-            timer_Disable(TIMER);
-            rend_RenderDeath(state);
-            delay(500); // Just in case the player presses enter right on this moments
+            OnDeath(state);
             return;
         }
     }
@@ -119,8 +133,36 @@ static void InGameTick(struct GameState *state) {
     while (timer_Get(TIMER) < SECOND/60);
 }
 
-static void TickQuestion(struct GameState *state) {
+static void Answer(struct GameState *state, int answer) {
+    if (state->questionInfo.a + state->questionInfo.b == answer) {
+        state->score += 8;
+    } else {
+        OnDeath(state);
+    }
+}
 
+static void TickQuestion(struct GameState *state) {
+    if (kb_IsDown(kb_Key0)) {
+        Answer(state, 0);
+    } else if (kb_IsDown(kb_Key1)) {
+        Answer(state, 1);
+    } else if (kb_IsDown(kb_Key2)) {
+        Answer(state, 2);
+    } else if (kb_IsDown(kb_Key3)) {
+        Answer(state, 3);
+    } else if (kb_IsDown(kb_Key4)) {
+        Answer(state, 4);
+    } else if (kb_IsDown(kb_Key5)) {
+        Answer(state, 5);
+    } else if (kb_IsDown(kb_Key6)) {
+        Answer(state, 6);
+    } else if (kb_IsDown(kb_Key7)) {
+        Answer(state, 7);
+    } else if (kb_IsDown(kb_Key8)) {
+        Answer(state, 8);
+    } else if (kb_IsDown(kb_Key9)) {
+        Answer(state, 9);
+    }
 }
 
 bool game_Tick(struct GameState *state) {

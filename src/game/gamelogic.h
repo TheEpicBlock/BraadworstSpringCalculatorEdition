@@ -23,7 +23,6 @@ struct QuestionInfo {
     float               timeToNext;
     int                 a;
     int                 b;
-    int                 answer;
 };
 
 struct GameState {
