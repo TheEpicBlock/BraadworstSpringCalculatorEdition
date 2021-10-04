@@ -66,7 +66,7 @@ void rend_RenderGame(struct GameState *state, float playerHeight) {
     
     RenderObstacles(state);
     
-    RenderScore();
+    RenderScore(state);
     
     // Swap frame
     gfx_SwapDraw();
@@ -122,7 +122,7 @@ void rend_RenderQuestion(struct GameState *state) {
     gfx_SetTextScale(1,1);
     gfx_SetTextBGColor(255);
     
-    RenderScore();
+    RenderScore(state);
     
     // Swap frame
     gfx_SwapDraw();
