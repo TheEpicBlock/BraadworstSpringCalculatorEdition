@@ -77,8 +77,7 @@ void rend_RenderDeath(struct GameState *state) {
     RenderPlayer(playerHeight);
     
     // TEXT
-    gfx_SetTextFGColor(COLOR_BLACK);
-    gfx_SetTextBGColor(COLOR_WHITE);
+    gfx_SetTextFGColor(COLOR_RED);
     gfx_SetTextScale(2,2);
     const char *gameover = "Game over";
     int textwidth = gfx_GetStringWidth(gameover);
@@ -89,8 +88,6 @@ void rend_RenderDeath(struct GameState *state) {
     gfx_SetTextXY((LCD_WIDTH - textwidth) / 2, gfx_GetTextY()+16);
     gfx_PrintString(score);
     gfx_PrintUInt(state->score, 0);
-    
-    gfx_SetTextBGColor(255);
     
     // Swap frame
     gfx_SwapDraw();
