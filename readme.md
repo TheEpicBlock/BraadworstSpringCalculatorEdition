@@ -1,3 +1,4 @@
-### Hello World Demo
+# Braadworst spring TI-84 Edition
 
-Displays the text `Hello, World!` on the calculator.
+## Building
+Run `make gfx` and `make` in this directory. `make gfx` requires both Python3 and FFmpeg. The output file will be `/bin/BWScalc.8xp`
