@@ -44,8 +44,12 @@ void RenderFloor(void) {
     gfx_FillRectangle_NoClip(0, LCD_HEIGHT-GROUND_LAYER_HEIGHT*4, LCD_WIDTH, GROUND_LAYER_HEIGHT);
 }
 
-void RenderPlayer(float playerHeight) {
-    gfx_RLETSprite(braadworst0, PLAYER_X, BASE-playerHeight*PLAYER_MAX_JUMP-braadworst0_height);
+void RenderPlayer(struct GameState *state, float playerHeight) {
+    if (state->playerAnim > 1) {
+        gfx_RLETSprite(braadworst1, PLAYER_X, BASE-playerHeight*PLAYER_MAX_JUMP-braadworst1_height);
+    } else {
+        gfx_RLETSprite(braadworst0, PLAYER_X, BASE-playerHeight*PLAYER_MAX_JUMP-braadworst0_height);
+    }
 }
 
 void RenderObstacles(struct GameState *state) {
@@ -62,7 +66,7 @@ void rend_RenderGame(struct GameState *state, float playerHeight) {
     gfx_ZeroScreen();
     
     RenderFloor();
-    RenderPlayer(playerHeight);
+    RenderPlayer(state, playerHeight);
     
     RenderObstacles(state);
     
@@ -77,7 +81,7 @@ void rend_RenderDeath(struct GameState *state) {
     
     RenderFloor();
     float playerHeight = game_PlayerYFromTime(state->timeJumped);
-    RenderPlayer(playerHeight);
+    RenderPlayer(state, playerHeight);
     RenderObstacles(state);
     
     // TEXT
@@ -102,7 +106,7 @@ void rend_RenderQuestion(struct GameState *state) {
     
     RenderFloor();
     float playerHeight = game_PlayerYFromTime(state->timeJumped);
-    RenderPlayer(playerHeight);
+    RenderPlayer(state, playerHeight);
     RenderObstacles(state);
     
     // Render question

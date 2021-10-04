@@ -52,6 +52,7 @@ void game_InitState(struct GameState *state) {
     state->score = 0;
     state->status = PLAYING;
     state->timeJumped = 10;
+    state->playerAnim = 0;
     
     // Render game
     rend_RenderGame(state, 0);
@@ -80,6 +81,10 @@ static void InGameTick(struct GameState *state) {
     timer_Set(TIMER, 0);
     
     float delta = (float)deltaTime / (float)SECOND;
+    
+    // Player anim
+    state->playerAnim += delta;
+    if (state->playerAnim > 2) state->playerAnim = 0;
     
     // Jump tick
     state->timeJumped += delta;

@@ -32,6 +32,8 @@ struct GameState {
     struct Obstacle     obstacles[OBSTACLE_COUNT];
     int                 lastObstacle;
     struct QuestionInfo questionInfo;
+    
+    float               playerAnim;
 };
 
 float game_PlayerYFromTime(float time);
