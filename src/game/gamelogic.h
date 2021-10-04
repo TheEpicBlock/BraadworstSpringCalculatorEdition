@@ -10,6 +10,7 @@ const int PLAYER_X = 10;
 
 enum GameStatus {
     PLAYING,
+    QUESTIONED,
     DEAD
 };
 
@@ -18,6 +19,12 @@ struct Obstacle {
     bool                hasScored;
 };
 
+struct QuestionInfo {
+    float               timeToNext;
+    int                 a;
+    int                 b;
+    int                 answer;
+};
 
 struct GameState {
     enum GameStatus     status;
@@ -25,7 +32,7 @@ struct GameState {
     float               timeJumped;
     struct Obstacle     obstacles[OBSTACLE_COUNT];
     int                 lastObstacle;
-    bool                isDead;
+    struct QuestionInfo questionInfo;
 };
 
 float game_PlayerYFromTime(float time);

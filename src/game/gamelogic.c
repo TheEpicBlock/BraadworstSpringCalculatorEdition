@@ -42,14 +42,14 @@ void game_InitState(struct GameState *state) {
 
     // Misc
     state->score = 0;
-    state->isDead = false;
-    state->timeJumped = 0;
+    state->status = PLAYING;
+    state->timeJumped = 10;
     
     // Render game
     rend_RenderGame(state, 0);
     
     // Give some time for the user to let go of enter
-    delay(1500);
+    delay(500);
     
     // Initialize timers    
     timer_Set(TIMER, 0);
@@ -66,32 +66,44 @@ static void InGameTick(struct GameState *state) {
     
     float delta = (float)deltaTime / (float)SECOND;
     
-    // Jumping
+    // Jump tick
     state->timeJumped += delta;
     
     float playerY = game_PlayerYFromTime(state->timeJumped);
     
-    // Move obstacles
+    // Tick question
+    if (state->questionInfo.timeToNext < 0) {
+        state->status = QUESTIONED;
+        timer_Disable(TIMER);
+        rend_RenderQuestion(state);
+        return;
+    }
+    
+    // Obstacles
     for (int i = 0; i < OBSTACLE_COUNT; i += 1) {
+        // Move
         state->obstacles[i].position -= OBSTACLE_SPEED * delta;
         if (state->obstacles[i].position < -genericobstacle_width) {
             state->obstacles[i].position = state->obstacles[state->lastObstacle].position + GetNewPositionOffset();
             state->lastObstacle = i;
         }
         
+        // Score
         if (state->obstacles[i].position < PLAYER_X && !state->obstacles[i].hasScored) {
             state->score += 3;
             state->obstacles[i].hasScored = true;
         }
         
+        // Kill
         if (gfx_CheckRectangleHotspot(PLAYER_X, playerY*PLAYER_MAX_JUMP, braadworst0_width, braadworst0_height, state->obstacles[i].position, 0, genericobstacle_width, genericobstacle_height)) {
-            state->isDead = true;
+            state->status = DEAD;
             timer_Disable(TIMER);
             rend_RenderDeath(state);
             return;
         }
     }
     
+    // Jump check
     if (playerY == 0) {
         if (kb_IsDown(kb_KeyEnter) || kb_IsDown(kb_KeyUp)) {
             state->timeJumped = 0;
@@ -105,6 +117,10 @@ static void InGameTick(struct GameState *state) {
     while (timer_Get(TIMER) < SECOND/60);
 }
 
+static void TickQuestion(struct GameState *state) {
+
+}
+
 bool game_Tick(struct GameState *state) {
     kb_Scan();
     
@@ -113,13 +129,17 @@ bool game_Tick(struct GameState *state) {
         return true;
     }
     
-    if (state->isDead) {
+    if (state->status == DEAD) {
         // Restart game
         if (os_GetCSC()) {
             game_InitState(state);
         }
     } else {
-        InGameTick(state);
+        if (state->status == PLAYING) {    
+            InGameTick(state);
+        } else {
+            TickQuestion(state);
+        }
     }
     
     return false;

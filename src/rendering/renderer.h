@@ -8,6 +8,7 @@ void rend_EndRendering(void);
 void rend_PrintMainMenu(void);
 void rend_RenderGame(struct GameState *state, float playerHeight);
 void rend_RenderDeath(struct GameState *state);
+void rend_RenderQuestion(struct GameState *state);
 
 #endif /* RENDERER_H */
 

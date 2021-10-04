@@ -95,3 +95,16 @@ void rend_RenderDeath(struct GameState *state) {
     // Swap frame
     gfx_SwapDraw();
 }
+
+void rend_RenderQuestion(struct GameState *state) {
+    gfx_ZeroScreen();
+    
+    RenderFloor();
+    float playerHeight = game_PlayerYFromTime(state->timeJumped);
+    RenderPlayer(playerHeight);
+    
+    
+    
+    // Swap frame
+    gfx_SwapDraw();
+}
