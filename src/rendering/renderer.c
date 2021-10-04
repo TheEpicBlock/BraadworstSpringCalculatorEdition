@@ -100,7 +100,23 @@ void rend_RenderQuestion(struct GameState *state) {
     float playerHeight = game_PlayerYFromTime(state->timeJumped);
     RenderPlayer(playerHeight);
     
+    // Render question
+    const char *gameover = "X + X = ?";
+    int textwidth = gfx_GetStringWidth(gameover);
     
+    gfx_SetTextFGColor(COLOR_BLACK);
+    gfx_SetTextBGColor(COLOR_WHITE);
+    gfx_SetTextScale(2,2);
+    gfx_SetTextXY((LCD_WIDTH - textwidth) / 2, (LCD_HEIGHT - 16) / 2);
+    
+    gfx_printUInt(state->questionInfo.a, 1);
+    gfx_PrintString(" + ");
+    gfx_printUInt(state->questionInfo.b, 1);
+    gfx_PrintString(" = ?");
+    
+    // Reset text thingies
+    gfx_SetTextScale(1,1);
+    gfx_SetTextBGColor(255);
     
     // Swap frame
     gfx_SwapDraw();
