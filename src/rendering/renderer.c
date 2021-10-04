@@ -54,6 +54,10 @@ void RenderObstacles(struct GameState *state) {
     }
 }
 
+void RenderScore(struct GameState *state) {
+    PrintUInt(5, 5, COLOR_WHITE, state->score);
+}
+
 void rend_RenderGame(struct GameState *state, float playerHeight) {
     gfx_ZeroScreen();
     
@@ -62,8 +66,7 @@ void rend_RenderGame(struct GameState *state, float playerHeight) {
     
     RenderObstacles(state);
     
-    // Show score
-    PrintUInt(5, 5, COLOR_WHITE, state->score);
+    RenderScore();
     
     // Swap frame
     gfx_SwapDraw();
@@ -75,6 +78,7 @@ void rend_RenderDeath(struct GameState *state) {
     RenderFloor();
     float playerHeight = game_PlayerYFromTime(state->timeJumped);
     RenderPlayer(playerHeight);
+    RenderObstacles(state);
     
     // TEXT
     gfx_SetTextFGColor(COLOR_RED);
@@ -99,6 +103,7 @@ void rend_RenderQuestion(struct GameState *state) {
     RenderFloor();
     float playerHeight = game_PlayerYFromTime(state->timeJumped);
     RenderPlayer(playerHeight);
+    RenderObstacles(state);
     
     // Render question
     gfx_SetTextScale(2,2);
@@ -116,6 +121,8 @@ void rend_RenderQuestion(struct GameState *state) {
     // Reset text thingies
     gfx_SetTextScale(1,1);
     gfx_SetTextBGColor(255);
+    
+    RenderScore();
     
     // Swap frame
     gfx_SwapDraw();

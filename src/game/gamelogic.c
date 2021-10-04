@@ -58,7 +58,7 @@ void game_InitState(struct GameState *state) {
     // Give some time for the user to let go of enter
     delay(500);
     
-    // Initialize timers    
+    // Initialize timers
     timer_Set(TIMER, 0);
     timer_Enable(TIMER, TIMER_32K, TIMER_NOINT, TIMER_UP);
     
@@ -136,6 +136,12 @@ static void InGameTick(struct GameState *state) {
 static void Answer(struct GameState *state, int answer) {
     if (state->questionInfo.a + state->questionInfo.b == answer) {
         state->score += 8;
+        
+        timer_Set(TIMER, 0);
+        timer_Enable(TIMER, TIMER_32K, TIMER_NOINT, TIMER_UP);
+        
+        state->questionInfo.timeToNext = GetNewQuestionTime();
+        state->status = PLAYING;
     } else {
         OnDeath(state);
     }
