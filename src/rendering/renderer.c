@@ -45,12 +45,12 @@ void RenderFloor(void) {
 }
 
 void RenderPlayer(float playerHeight) {
-    gfx_Sprite(braadworst0, PLAYER_X, BASE-playerHeight*PLAYER_MAX_JUMP-braadworst0_height);
+    gfx_RLETSprite(braadworst0, PLAYER_X, BASE-playerHeight*PLAYER_MAX_JUMP-braadworst0_height);
 }
 
 void RenderObstacles(struct GameState *state) {
     for (int i = 0; i < OBSTACLE_COUNT; i += 1) {
-        gfx_Sprite(genericobstacle, (int)(state->obstacles[i].position), BASE-genericobstacle_height);
+        gfx_RLETSprite(genericobstacle, (int)(state->obstacles[i].position), BASE-genericobstacle_height);
     }
 }
 

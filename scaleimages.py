@@ -19,9 +19,17 @@ with open(gfx+"/scaling.properties") as f:
                 "ffmpeg", 
                 "-i",
                 gfx+"/source/"+key.strip(),
+                "-y",
+                "-filter_complex",
+                "[0]split=2[bg][fg];[bg]drawbox=c=#294d79@1:replace=1:t=fill[bg];[bg][fg]overlay=format=auto",
+                gfx+"/backgrounded/"+key.strip(),
+            ])
+            subprocess.run([
+                "ffmpeg", 
+                "-i",
+                gfx+"/backgrounded/"+key.strip(),
                 "-vf",
                 "scale=-1:"+val.strip(),
                 "-y",
-                "./"+gfx+"/scaled/"+key.strip(),
+                gfx+"/scaled/"+key.strip(),
             ])
-            

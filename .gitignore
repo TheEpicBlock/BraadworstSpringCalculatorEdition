@@ -1,4 +1,5 @@
 obj/
 bin/
 src/gfx/generated/
+src/gfx/backgrounded/
 src/gfx/scaled/

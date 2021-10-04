@@ -13,10 +13,9 @@ converts:
   - name: sprites
     palette: global_palette
     transparent-color-index: 0
+    style: rlet
     images:
-      - scaled/braadworst0.png
-      - scaled/braadworst1.png
-      - scaled/genericobstacle.png
+      - scaled/*
 
 outputs:
   - type: c
