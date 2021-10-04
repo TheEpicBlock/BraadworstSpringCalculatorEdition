@@ -126,14 +126,16 @@ static void InGameTick(struct GameState *state) {
     }
     
     // Jump check
-    if (playerY == 0) {
+    if (playerY == 0 && state->status == PLAYING) {
         if (kb_IsDown(kb_KeyEnter) || kb_IsDown(kb_KeyUp)) {
             state->timeJumped = 0;
         }
     }
     
     // Render game
-    rend_RenderGame(state, playerY);
+    if (state->status == PLAYING) {
+        rend_RenderGame(state, playerY);
+    }
     
     // Don't go too fast
     while (timer_Get(TIMER) < SECOND/60);
