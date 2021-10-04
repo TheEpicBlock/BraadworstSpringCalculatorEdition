@@ -7,6 +7,7 @@
 #include "gfx/generated/gfx.h"
 
 const int OBSTACLE_SPACING = LCD_WIDTH * 0.9f;
+const int OBSTACLE_DEVIATION = LCD_WIDTH * 0.1f;
 const int OBSTACLE_MAX_OFFSET = 5;
 const int OBSTACLE_SPEED = 80;
 
@@ -22,11 +23,11 @@ static float Max(float a, float b) {
 }
 
 float GetNewPositionOffset(void) {
-    return OBSTACLE_SPACING + 0;
+    return OBSTACLE_SPACING + randInt(-OBSTACLE_DEVIATION, OBSTACLE_DEVIATION);
 }
 
 float GetNewQuestionTime(void) {
-    return 10;
+    return (float)randInt(90, 120)/10.;
 }
 
 float game_PlayerYFromTime(float time) {
