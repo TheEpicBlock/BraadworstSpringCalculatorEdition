@@ -111,7 +111,7 @@ void rend_RenderQuestion(struct GameState *state) {
     
     gfx_printUInt(state->questionInfo.a, 1);
     gfx_PrintString(" + ");
-    gfx_printUInt(state->questionInfo.b, 1);
+    gfx_PrintUInt(state->questionInfo.b, 1);
     gfx_PrintString(" = ?");
     
     // Reset text thingies
