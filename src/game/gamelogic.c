@@ -151,6 +151,10 @@ static void Answer(struct GameState *state, int answer) {
 }
 
 static void TickQuestion(struct GameState *state) {
+    if (state->status != QUESTIONED) {
+        return; // Can happen if the player just died
+    }
+    
     rend_RenderQuestion(state);
     if (kb_IsDown(kb_Key0)) {
         Answer(state, 0);
