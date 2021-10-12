@@ -92,12 +92,10 @@ static void InGameTick(struct GameState *state) {
     float playerY = game_PlayerYFromTime(state->timeJumped);
     
     // Tick question
-    if (state->questionInfo.timeToNext < 0) {
-        state->questionInfo.a = randInt(1,2);
-        state->questionInfo.b = randInt(1,2);
+    if (state->status == PLAYING && state->questionInfo.timeToNext < 0) {
+        state->questionInfo.a = randInt(1,3);
+        state->questionInfo.b = randInt(1,3);
         state->status = QUESTIONED;
-        timer_Disable(TIMER);
-        rend_RenderQuestion(state);
         return;
     }
     state->questionInfo.timeToNext -= delta;
@@ -145,9 +143,6 @@ static void Answer(struct GameState *state, int answer) {
     if (state->questionInfo.a + state->questionInfo.b == answer) {
         state->score += 8;
         
-        timer_Set(TIMER, 0);
-        timer_Enable(TIMER, TIMER_32K, TIMER_NOINT, TIMER_UP);
-        
         state->questionInfo.timeToNext = GetNewQuestionTime();
         state->status = PLAYING;
     } else {
@@ -156,6 +151,7 @@ static void Answer(struct GameState *state, int answer) {
 }
 
 static void TickQuestion(struct GameState *state) {
+    rend_RenderQuestion(state);
     if (kb_IsDown(kb_Key0)) {
         Answer(state, 0);
     } else if (kb_IsDown(kb_Key1)) {
@@ -193,9 +189,10 @@ bool game_Tick(struct GameState *state) {
             game_InitState(state);
         }
     } else {
-        if (state->status == PLAYING) {    
+        if (state->status == PLAYING) {
             InGameTick(state);
         } else {
+            InGameTick(state);
             TickQuestion(state);
         }
     }

@@ -6,10 +6,10 @@ NAME = BWScalc
 ICON = icon.png
 DESCRIPTION = "De legendarische Braadworst spring, nu in je rekenmachine"
 COMPRESSED = NO
-ARCHIVED = NO
+ARCHIVED = YES
 
-CFLAGS = -Wall -Wextra -O3
-CXXFLAGS = -Wall -Wextra -O3
+CFLAGS = -Wall -Wextra -Oz
+CXXFLAGS = -Wall -Wextra -Oz
 
 # ----------------------------
 
